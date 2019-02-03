@@ -7,26 +7,24 @@ package net.ukr.andy777;
  */
 
 import java.math.BigInteger;
-import java.util.Arrays;
 
 public class Main {
 
 	public static void main(String[] args) {
-		int array[] = new int[44000000];
-		int arrayCopy[];
+		int array[] = new int[100];
 
 		// initialize of array
 		for (int i = 0; i < array.length; i++)
 			array[i] = (int) (Math.random() * 9);
 
-		resMutiThreadSum(array, 1);
-		resMutiThreadSum(array, 2);
-		resMutiThreadSum(array, 3);
-		resMutiThreadSum(array, 4);
+		resMultiThreadSum(array, 1);
+		resMultiThreadSum(array, 2);
+		resMultiThreadSum(array, 30);
+		resMultiThreadSum(array, 59);
 
 	}
 
-	public static void resMutiThreadSum(int array[], int qThreads) {
+	public static void resMultiThreadSum(int array[], int qThreads) {
 		long tstart, tend;
 
 		tstart = System.currentTimeMillis();
@@ -46,7 +44,7 @@ public class Main {
 			int size = array.length / qThreads;
 			int begin = size * i;
 			int end = ((i + 1) * size);
-			if ((array.length - end) < size) {
+			if ((array.length - end) < size || i == (sumThread.length - 1)) {
 				end = array.length;
 			}
 			sumThread[i] = new SumThread(array, begin, end);
